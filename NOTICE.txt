@@ -1,0 +1,11 @@
+Sclera - Tests
+Copyright 2012 - 2020 Sclera, Inc.
+ 
+This product uses the following third-party components:
+
+ScalaTest - Apache License v2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
+Some of the test data and test SQL queries have been copied from PostgreSQL -
+https://github.com/postgres/postgres/tree/master/src/test/regress/sql
+Portions Copyright (c) 1996-2020, PostgreSQL Global Development Group
+Portions Copyright (c) 1994, The Regents of the University of California
