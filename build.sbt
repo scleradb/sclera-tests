@@ -4,6 +4,8 @@ description := "Scripts and data for testing Sclera"
 
 version := "4.0-SNAPSHOT"
 
+homepage := Some(url("https://github.com/scleradb/sclera-tests"))
+
 organization := "com.scleradb"
 
 organizationName := "Sclera, Inc."
