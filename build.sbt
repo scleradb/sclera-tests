@@ -19,14 +19,14 @@ scalaVersion := "2.13.1"
 licenses := Seq("Apache License version 2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt"))
 
 libraryDependencies ++= Seq(
-    "com.scleradb" %% "sclera-config" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-core" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-jdbc" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-plugin-opennlp" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-plugin-csv" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-plugin-textfiles" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-plugin-matcher" % "4.0-SNAPSHOT" % "test",
-    "com.scleradb" %% "sclera-sqltests-parser" % "4.0-SNAPSHOT" % "test",
+    "com.scleradb" %% "sclera-config" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-core" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-jdbc" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-plugin-opennlp" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-plugin-csv" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-plugin-textfiles" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-plugin-matcher" % "latest.integration" % "test",
+    "com.scleradb" %% "sclera-sqltests-parser" % "latest.integration" % "test",
     "org.scalatest" %% "scalatest" % "3.1.0" % "test"
 )
 
