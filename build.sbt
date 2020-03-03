@@ -34,8 +34,6 @@ scalacOptions ++= Seq(
     "-Werror", "-feature", "-deprecation", "-unchecked"
 )
 
-javaOptions += "-DSCLERA_HOME=%s".format(Path.userHome / ".sclera")
-
 fork in Test := true
 
 parallelExecution in Test := false
