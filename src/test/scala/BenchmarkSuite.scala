@@ -101,10 +101,6 @@ extends AnyFunSpec with CancelAfterFailure with SqlTestRunner {
             runScript(stmt, "/scripts/select_having_view.out")
         }
 
-        it("should execute SEQ script") {
-            runScript(stmt, "/scripts/seq.out")
-        }
-
         it("should execute MISC script") {
             runScript(stmt, "/scripts/misc.out")
         }

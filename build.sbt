@@ -22,10 +22,7 @@ libraryDependencies ++= Seq(
     "com.scleradb" %% "sclera-config" % "latest.integration" % "test",
     "com.scleradb" %% "sclera-core" % "latest.integration" % "test",
     "com.scleradb" %% "sclera-jdbc" % "latest.integration" % "test",
-    "com.scleradb" %% "sclera-plugin-opennlp" % "latest.integration" % "test",
     "com.scleradb" %% "sclera-plugin-csv" % "latest.integration" % "test",
-    "com.scleradb" %% "sclera-plugin-textfiles" % "latest.integration" % "test",
-    "com.scleradb" %% "sclera-plugin-matcher" % "latest.integration" % "test",
     "com.scleradb" %% "sclera-sqltests-runner" % "latest.integration" % "test",
     "org.scalatest" %% "scalatest" % "3.1.0" % "test"
 )
