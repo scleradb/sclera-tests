@@ -21,43 +21,50 @@ import org.scalatest.CancelAfterFailure
 import org.scalatest.funspec.AnyFunSpec
 
 import java.util.Properties
-import java.sql.{Connection, DriverManager, Statement, ResultSet, SQLException}
 
+import java.sql.{Connection, Statement, ResultSet, ResultSetMetaData, Types}
+import java.sql.{DriverManager, SQLException}
+
+import com.scleradb.interfaces.jdbc.ScleraJdbcDriver
 import com.scleradb.sqltests.runner.SqlTestRunner
 
 class BenchmarkSuite
 extends AnyFunSpec with CancelAfterFailure with SqlTestRunner {
     val jdbcUrl: String = "jdbc:scleradb"
 
-    val props: Properties = new Properties()
-    props.setProperty("schemaDbms", "H2MEM")
-    props.setProperty("schemaDb", "scleratests")
-    props.setProperty("tempDb", "scleratests")
+    var conn: Connection = null
+    var stmt: Statement = null
 
-    var conn: java.sql.Connection = null
-    var stmt: java.sql.Statement = null
+    def getConnection(props: Properties): Connection = if( isTravis ) {
+        // Travis CI does not like JDBC
+        val driver: ScleraJdbcDriver = new ScleraJdbcDriver
+        driver.connect(jdbcUrl, props)
+    } else DriverManager.getConnection(jdbcUrl, props)
 
     describe("JDBC driver") {
-        it("should return a valid connection") {
-            conn = DriverManager.getConnection(jdbcUrl, props)
-        }
+        it("should setup") {
+            val props: Properties = new Properties()
+            props.setProperty("schemaDbms", "H2MEM")
+            props.setProperty("schemaDb", "scleratests")
+            props.setProperty("tempDb", "scleratests")
 
-        it("should create a valid statement") {
-            stmt = conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-                                        java.sql.ResultSet.CONCUR_READ_ONLY)
-            stmt.executeUpdate("create schema")
+            conn = getConnection(props)
+            stmt = conn.createStatement(
+                ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
+            )
+
+            if( conn.getWarnings() != null ) stmt.executeUpdate("create schema")
         }
 
         it("should execute a test query") {
-            val rs: java.sql.ResultSet =
-                stmt.executeQuery("select 'bar' as foo;")
-            val metaData: java.sql.ResultSetMetaData = rs.getMetaData()
+            val rs: ResultSet = stmt.executeQuery("select 'bar' as foo;")
+            val metaData: ResultSetMetaData = rs.getMetaData()
 
             assert(metaData.getColumnCount() === 1)
             assert(metaData.getColumnName(1) === "FOO")
             assert(
-                (metaData.getColumnType(1) == java.sql.Types.VARCHAR) ||
-                (metaData.getColumnType(1) == java.sql.Types.CHAR)
+                (metaData.getColumnType(1) == Types.VARCHAR) ||
+                (metaData.getColumnType(1) == Types.CHAR)
             )
 
             assert(rs.next() === true)
@@ -108,7 +115,7 @@ extends AnyFunSpec with CancelAfterFailure with SqlTestRunner {
         it("should close the statement") {
             stmt.close()
 
-            val e: Throwable = intercept[java.sql.SQLException] {
+            val e: Throwable = intercept[SQLException] {
                 stmt.executeQuery("select 1::int as foo;")
             }
 
@@ -118,9 +125,10 @@ extends AnyFunSpec with CancelAfterFailure with SqlTestRunner {
         it("should close the connection") {
             conn.close()
 
-            val e: Throwable = intercept[java.sql.SQLException] {
-                conn.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY,
-                                     java.sql.ResultSet.CONCUR_READ_ONLY)
+            val e: Throwable = intercept[SQLException] {
+                conn.createStatement(
+                    ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY
+                )
             }
 
             assert(e.getMessage() === "Connection closed")
