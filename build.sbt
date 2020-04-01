@@ -27,7 +27,7 @@ libraryDependencies ++= Seq(
     "com.scleradb" %% "sclera-jdbc" % "4.0-SNAPSHOT" % "test",
     "com.scleradb" %% "sclera-plugin-csv" % "4.0-SNAPSHOT" % "test",
     "com.scleradb" %% "sclera-sqltests-runner" % "4.0-SNAPSHOT" % "test",
-    "org.scalatest" %% "scalatest" % "3.1.0" % "test"
+    "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 )
 
 scalacOptions ++= Seq(
