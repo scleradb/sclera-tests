@@ -34,6 +34,8 @@ scalacOptions ++= Seq(
     "-Werror", "-feature", "-deprecation", "-unchecked"
 )
 
+Test / publishArtifact := true
+
 exportJars := true
 
 javaOptions in Test ++= Seq(
